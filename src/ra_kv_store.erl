@@ -35,16 +35,16 @@ maybe_block() ->
   io:format("Going for a round...~n"),
   [Server1, _, _] = Servers = servers(),
   timer:sleep(5000),
-  ok = ra:stop_server(Server1),
+  ok = ra:stop_server(Server1), %Stop one server
   timer:sleep(5000),
   Leader = consistent_query(),
   io:format("Restarting server  ~p~n", [Leader]),
-  ok = ra:stop_server(Leader),
+  ok = ra:stop_server(Leader), %Stop the leader. Now we have no majority.
   timer:sleep(1000),
-  ok = ra:restart_server(Leader),
+  ok = ra:restart_server(Leader), %Restart the stopped leader. After an election we should have majority again
   timer:sleep(1000),
   consistent_query(),
-  ok = ra:restart_server(Server1),
+  ok = ra:restart_server(Server1), %Restart first server we stopped
   ok.
 
 consistent_query() ->

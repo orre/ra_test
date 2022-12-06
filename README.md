@@ -20,16 +20,18 @@ rebar3 shell --name ra2@ratatosk.local
 rebar3 shell --name ra3@ratatosk.local
 ```
 
-## Run test
-
+## Example session
+**Start cluster**
 ```
-% Start cluster and run test cycle
 ra_kv_store:start_cluster().
+```
+**Test cycle**
+```
 ra_kv_store:until_block().
 ra:consistent_query(ra_kv_store:servers(), fun(_) -> undefined end).
 ```
 
-## Example session
+**Example output**
 ```
 (ra2@ratatosk.localdomain)1> ===> Booted ra_test                                                                                                                                                                                                                                                                                                                                                                                                                                                   [40/50]
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           
@@ -137,5 +139,6 @@ Going for a round...
 {error,{no_more_servers_to_try,[{timeout,{ra_kv,'ra2@ratatosk.localdomain'}},
                                 {timeout,{ra_kv,'ra2@ratatosk.localdomain'}},
                                 {error,noproc}]}}
-(ra2@ratatosk.localdomain)18> ra:consistent_query(ra_kv_store:servers(), fun(_) -> undefined end, infinity).
+(ra2@ratatosk.local)18> ra:leader_query(ra_kv_store:servers(), fun(_) -> undefined end).    
+{ok,{{9,8},undefined},{ra_kv,'ra2@ratatosk.local'}}                                
 ```

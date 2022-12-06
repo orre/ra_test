@@ -20,7 +20,7 @@ apply(_Meta, {read, Key}, State) ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 servers() ->
-  [{ra_kv, 'ra1@ratatosk.localdomain'}, {ra_kv, 'ra2@ratatosk.localdomain'}, {ra_kv, 'ra3@ratatosk.localdomain'}].
+  [{ra_kv, 'ra1@ratatosk.local'}, {ra_kv, 'ra2@ratatosk.local'}, {ra_kv, 'ra3@ratatosk.local'}].
 
 start_cluster() ->
   Servers = servers(),

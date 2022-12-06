@@ -11,13 +11,13 @@ An OTP application
 
 ## Start 3 erlang nodes
 ```
-rebar3 shell --name ra1@ratatosk.localdomain
+rebar3 shell --name ra1@ratatosk.local
 ```
 ```
-rebar3 shell --name ra2@ratatosk.localdomain
+rebar3 shell --name ra2@ratatosk.local
 ```
 ```
-rebar3 shell --name ra3@ratatosk.localdomain
+rebar3 shell --name ra3@ratatosk.local
 ```
 
 ## Run test
@@ -137,6 +137,5 @@ Going for a round...
 {error,{no_more_servers_to_try,[{timeout,{ra_kv,'ra2@ratatosk.localdomain'}},
                                 {timeout,{ra_kv,'ra2@ratatosk.localdomain'}},
                                 {error,noproc}]}}
-(ra2@ratatosk.localdomain)18> ra:consistent_query(ra_kv_store:servers(), fun(_) -> undefined end, indefinitely).
-(ra2@ratatosk.localdomain)19> ra:consistent_query(ra_kv_store:servers(), fun(_) -> undefined end, infinity).
+(ra2@ratatosk.localdomain)18> ra:consistent_query(ra_kv_store:servers(), fun(_) -> undefined end, infinity).
 ```

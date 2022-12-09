@@ -1,6 +1,6 @@
 -module(ra_kv_store).
 -behaviour(ra_machine).
--export([init/1, apply/3, servers/0, start_cluster/0, maybe_block/0, until_block/0, consistent_query/0]).
+-export([init/1, apply/3, servers/0, start_cluster/0, maybe_block/0, until_block/0, consistent_query/0, purge_ra_state_dirs/0]).
 
 -define(vcall(E), (io:format(user, "~w: ~s => ~p~n", [?LINE, ??E, E]))).
 
@@ -19,10 +19,17 @@ apply(_Meta, {read, Key}, State) ->
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+purge_ra_state_dirs() ->
+  [{_, S1}, {_, S2}, {_, S3}] = servers(),
+  file:del_dir_r(S1),
+  file:del_dir_r(S2),
+  file:del_dir_r(S3).
+
 servers() ->
   [{ra_kv, 'ra1@ratatosk.local'}, {ra_kv, 'ra2@ratatosk.local'}, {ra_kv, 'ra3@ratatosk.local'}].
 
 start_cluster() ->
+  purge_ra_state_dirs(),
   Servers = servers(),
   [io:format("Attempting to communicate with node ~s, response: ~s~n", [N, net_adm:ping(N)]) || {_, N} <- Servers],
   [rpc:call(N, ra, start, []) || {_, N} <- Servers],

@@ -3,7 +3,7 @@
  {<<"gen_batch_server">>,{pkg,<<"gen_batch_server">>,<<"0.8.8">>},1},
  {<<"ra">>,
   {git,"https://github.com/rabbitmq/ra.git",
-       {ref,"958fafbb0c9f8c423f07da587160493105e38c0a"}},
+       {ref,"aa99e17694ac2dffe8166159ec54332869df72fd"}},
   0},
  {<<"seshat">>,{pkg,<<"seshat">>,<<"0.4.0">>},1}]}.
 [
